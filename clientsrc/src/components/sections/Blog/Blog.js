@@ -29,7 +29,7 @@ const Blog = () => {
               <div className='card rounded-0'>
                 <img src={blogImage2} className='card-img-top' alt='Blog 2' />
                 <div className='card-body'>
-                  <h5 className='card-title'>An expression that causes sexual discomfort</h5>
+                  <h5 className='card-title'>Expression that causes sexual discomfort</h5>
                 </div>
               </div>
             </div>
@@ -37,7 +37,7 @@ const Blog = () => {
               <div className='card rounded-0'>
                 <img src={blogImage3} className='card-img-top' alt='Blog 3' />
                 <div className='card-body'>
-                  <h5 className='card-title'>An intentional expression of character</h5>
+                  <h5 className='card-title'>Intentional expression of character</h5>
                 </div>
               </div>
             </div>
