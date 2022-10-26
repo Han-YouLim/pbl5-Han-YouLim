@@ -19,6 +19,13 @@ const topBar = () => {
             </div>
           </div>
 
+          <div className='d-flex pt-2'>
+            <div className='social-media d-flex align-item-center'>
+              <a href='https://github.com/Han-YouLim' className='text-light'>
+                <i className='fab fa-github' />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

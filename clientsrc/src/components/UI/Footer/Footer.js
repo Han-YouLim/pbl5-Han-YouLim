@@ -14,15 +14,15 @@ const footer = () => {
             <div className='footer-content'>
               <p>
                 <small className='text-muted'>
-                  Aenean suscipit eget mi act fermentum phasellus vulputate
-                  turpis tincidunt. Aenean suscipit eget. Aenean suscipit eget
-                  mi act fermentum phasellus vulputate turpis tincidunt. Aenean
-                  suscipit ege Aenean suscipit eget mi act fermentum phasellus.
+                  Our team made a system that filters harmful languages and processes them
+                  into safer videos using deep learning technology to protect infants and adolescents.
                 </small>
               </p>
-              <button className='btn btn-sm btn-primary rounded-0'>
-                Learn more
-              </button>
+              <Link target='about'>
+                <button className='btn btn-sm btn-primary rounded-0'>
+                  Learn more
+                </button>
+              </Link>
             </div>
           </div>
           <div className='col-sm-6 col-md-6 col-lg-2 mb-5'>
@@ -40,10 +40,10 @@ const footer = () => {
                   <Link target='about'>About</Link>
                 </li>
                 <li>
-                  <Link target='services'>Services</Link>
+                  <Link target='services'>Service Process</Link>
                 </li>
                 <li>
-                  <Link target='blog'>Blog</Link>
+                  <Link target='blog'>Criteria</Link>
                 </li>
                 <li>
                   <Link target='contact'>Contact</Link>
@@ -58,17 +58,16 @@ const footer = () => {
             <div className='footer-content'>
               <p>
                 <small className='text-muted'>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  We've revamped our SwearOut web service!
                 </small>
               </p>
               <p>
                 <small className='text-muted'>
-                  Pellentesque et pulvinar enim. Quisque at tempor ligula Natus
-                  error sit voluptatem
+                  We are people who are running towards their respective goals.
                 </small>
               </p>
               <p>
-                <small className='text-muted'>accusantium doloremque</small>
+                <small className='text-muted'>flor de la vida!</small>
               </p>
             </div>
           </div>
@@ -78,25 +77,16 @@ const footer = () => {
             </div>
             <div className='footer-content'>
               <p className='text-muted'>
-                <small>Address : 123 main street, Algiers, Algeria</small>
+                <small>Address : 621 Hwarang-ro, Nowon-gu, Seoul, Republic of Korea</small>
               </p>
               <p className='text-muted'>
-                <small>Phone : +213 (0) 123 456 789</small>
+                <small>Phone : +82 (010) 1234 - 5678</small>
               </p>
               <p className='text-muted'>
-                <small>E-mail : contact@email.com</small>
+                <small>hanyoulim @email.com</small>
               </p>
               <div className='social-media mt-4'>
-                <a href='!#' className='text-light'>
-                  <i className='fab fa-facebook-f mr-4' />
-                </a>
-                <a href='!#' className='text-light'>
-                  <i className='fab fa-twitter mr-4' />
-                </a>
-                <a href='!#' className='text-light'>
-                  <i className='fab fa-instagram mr-4' />
-                </a>
-                <a href='!#' className='text-light'>
+                <a href='https://github.com/Han-YouLim' className='text-light'>
                   <i className='fab fa-github' />
                 </a>
               </div>
