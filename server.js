@@ -16,6 +16,28 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'clientsrc/build/index.html'));
 });
 
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: (req, file, callBack) => {
+        callBack(null, 'uploads')
+    },
+    filename: (req, file, callBack) => {
+        callBack(null, `${file.originalname}`)
+    }
+})
+let upload = multer({ dest: 'uploads/' })
+const server = express();
+server.post('/uploadFile', upload.single('file'), (req, res, next) => {
+    const file = req.file;
+    console.log(file.filename);
+    if (!file) {
+        const error = new Error('No File')
+        error.httpStatusCode = 400
+        return next(error)
+    }
+    res.send(file);
+})
+
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'clientsrc/build/index.html'));
 });
