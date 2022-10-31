@@ -2,8 +2,6 @@ import React from 'react';
 
 import Section from '../../../HOC/Section';
 import contactImage from "../../../assets/img/contact.jpeg";
-import aboutImage from "../../../assets/img/about.jpg";
-import bgImage from "../../../assets/img/home_bg.jpg";
 
 const contact = () => {
   return (

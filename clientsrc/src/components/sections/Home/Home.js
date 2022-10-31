@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import Section from '../../../HOC/Section';
 import bgImage from '../../../assets/img/swuImage.png';
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 const ALLOW_FILE_EXTENSION = ["mp4"]
 
@@ -25,24 +26,25 @@ const home = () => {
     if(file){
       const inputExtension = file.name.substr(file.name.indexOf('.')).replace(".","")
       // 파일 확장자 체크
-      if(ALLOW_FILE_EXTENSION.includes(inputExtension)) {
-        const formData = new FormData();
-        formData.append("file", file);
-        const config = {
-          headers: {
-            'content-type': 'multipart/form-data',
-            "Access-Control-Allow-Origin": "*",
-          },
-        };
-        axios.post(url, formData, config).then((res) => {
-          console.log("SUCCESS!")
-          console.log(res.data);
-        });
+      // if(ALLOW_FILE_EXTENSION.includes(inputExtension)) {
+      //   const formData = new FormData();
+      //   formData.append("file", file);
+      //   const config = {
+      //     headers: {
+      //       'content-type': 'multipart/form-data',
+      //       "Access-Control-Allow-Origin": "*",
+      //     },
+      //   };
+      //   axios.post(url, formData, config).then((res) => {
+      //     console.log("SUCCESS!")
+      //
+      //   });
 
-      }else{
-        alert(`This is not an uploadable extension. Please choose again. [only "${ALLOW_FILE_EXTENSION}"]`)
-        return;
-      }
+      // }else{
+      //   alert(`This is not an uploadable extension. Please choose again. [only "${ALLOW_FILE_EXTENSION}"]`)
+      //   return;
+      // }
+
     }else{
       alert("Please select a video to upload.")
     }
@@ -61,9 +63,9 @@ const home = () => {
               Upload Video Here And Re-create A Safe Video!
             </h2>
             <div classes='btn btn-primary rounded-0 mr-2'>
-              <form method="post" action="upload_process.php" enctype="multipart/form-data" onSubmit={onClickSubmit}>
+              <form method="post" enctype="multipart/form-data" onSubmit={onClickSubmit}>
                 <input type="file" style={{backgroundColor:"#969696", opacity:"0.7"}} onChange={onChangeFileInput}/>
-                <button type="submit">Upload</button>
+                <Link to="/upload"> <button type="submit">Upload</button> </Link>
               </form>
             </div>
           </div>

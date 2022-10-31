@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import Link from '../Link/Link';
 
 const Nav = () => {
@@ -21,23 +20,22 @@ const Nav = () => {
   }, []);
   return (
     <nav className={`navbar navbar-expand-md bg-light ${navClass}`}>
-      <div className='container'>
-        <a className='navbar-brand' href='!#'>
-          <span>SwearOut!</span>
-          <i className='fas fa-circle ml-1' />
-        </a>
-        <div
-          className={`navbar-toggler nav-icon ${(() => {
-            if (toggeledNav) return 'open';
-            return '';
-          })()}`}
-          onClick={toggleNav}
-        >
-          <span />
-          <span />
-          <span />
-        </div>
-
+      <div className='container' >
+            <a className='navbar-brand' href='/'>
+              <span>SwearOut!</span>
+              <i className='fas fa-circle ml-1' />
+            </a>
+            <div
+                className={`navbar-toggler nav-icon ${(() => {
+                  if (toggeledNav) return 'open';
+                  return '';
+                })()}`}
+                onClick={toggleNav}
+            >
+            </div>
+        <span />
+        <span />
+        <span />
         <div
           className={`collapse navbar-collapse ${(() => {
             if (toggeledNav) return 'show';
