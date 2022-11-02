@@ -12,6 +12,7 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import './partials/facts';
 @import './partials/blog';
 @import './partials/footer';
+@import './partials/upload';
 
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 // @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
@@ -31,7 +32,6 @@ body {
       color: #248eff;
     }
     &:after {
-      content: '';
       content: '';
       display: block;
       height: 3px;

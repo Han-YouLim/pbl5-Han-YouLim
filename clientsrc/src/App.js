@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import Header from "./components/UI/Header/Header";
 import Footer from "./components/UI/Footer/Footer";
 import Upload from "./components/Upload/Upload";
-import Home from "./components/sections/Home/Home";
 import Layout from "./components/Layout/Layout";
 
 function App() {
@@ -14,7 +13,6 @@ function App() {
           <Route path="/" element={<Layout/>} />
           <Route path="/upload" element={<Upload />} />
         </Routes>
-
         <Footer />
       </>
   );

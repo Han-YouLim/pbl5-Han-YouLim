@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from '../Link/Link';
+import Link2 from '../Link/Link2'
+import { useLocation } from 'react-router-dom';
 
 const Nav = () => {
+  const location = useLocation();
   const [navClass, setNavClass] = useState('');
   const [toggeledNav, settoggeledNav] = useState(false);
 
@@ -18,6 +21,9 @@ const Nav = () => {
       setNavClass(navClass);
     });
   }, []);
+  useEffect(()=>{
+    console.log(location)
+  }, [location])
   return (
     <nav className={`navbar navbar-expand-md bg-light ${navClass}`}>
       <div className='container' >
@@ -42,33 +48,40 @@ const Nav = () => {
             return '';
           })()}`}
         >
-          <ul className='navbar-nav ml-auto'>
-            <li className='nav-item'>
-              <Link target='home' offset={-120} classes='nav-link'>
-                Home
-              </Link>
-            </li>
-            <li className='nav-item'>
-              <Link target='about' classes='nav-link'>
-                About
-              </Link>
-            </li>
-            <li className='nav-item'>
-              <Link target='services' classes='nav-link'>
-                Service Process
-              </Link>
-            </li>
-            <li className='nav-item'>
-              <Link target='blog' classes='nav-link'>
-                Criteria
-              </Link>
-            </li>
-            <li className='nav-item'>
-              <Link target='contact' classes='nav-link'>
-                Contact
-              </Link>
-            </li>
-          </ul>
+          {
+            location.pathname === "/upload"? (
+                <></>
+            ):(
+                <ul className='navbar-nav ml-auto'>
+                  <li className='nav-item'>
+                    <Link target='home' offset={-120} classes='nav-link'>
+                      Home
+                    </Link>
+                  </li>
+                  <li className='nav-item'>
+                    <Link target='about' classes='nav-link'>
+                      About
+                    </Link>
+                  </li>
+                  <li className='nav-item'>
+                    <Link target='services' classes='nav-link'>
+                      Service Process
+                    </Link>
+                  </li>
+                  <li className='nav-item'>
+                    <Link target='blog' classes='nav-link'>
+                      Criteria
+                    </Link>
+                  </li>
+                  <li className='nav-item'>
+                    <Link target='contact' classes='nav-link'>
+                      Contact
+                    </Link>
+                  </li>
+                </ul>
+            )
+          }
+
         </div>
       </div>
     </nav>

@@ -1,10 +1,12 @@
 import React from 'react';
 
 import Link from '../Link/Link';
+import {useLocation} from "react-router-dom";
 
 const footer = () => {
+  const location = useLocation();
   return (
-    <footer className=''>
+    <footer className='' style={{marginTop:"4rem"}}>
       <div className='container text-light pt-5'>
         <div className='row'>
           <div className='col-sm-6 col-md-6 col-lg-4 mb-5'>
@@ -18,39 +20,50 @@ const footer = () => {
                   into safer videos using deep learning technology to protect infants and adolescents.
                 </small>
               </p>
-              <Link target='about'>
-                <button className='btn btn-sm btn-primary rounded-0'>
-                  Learn more
-                </button>
-              </Link>
-            </div>
-          </div>
-          <div className='col-sm-6 col-md-6 col-lg-2 mb-5'>
-            <div className='footer-title'>
-              <h6>Quick Links</h6>
-            </div>
-            <div className='footer-content'>
-              <ul className='list-group quick-links'>
-                <li>
-                  <Link target='home' offset={-120}>
-                    Home
+              {location.pathname == "/upload" ? (
+                  <button className='btn btn-sm btn-primary rounded-0'>
+                    <a href="/" style={{color: "white", textDecoration:"none"}}>Learn more</a>
+                  </button>
+              ) : (
+                  <Link target='about'>
+                    <button className='btn btn-sm btn-primary rounded-0'>
+                      Learn more
+                    </button>
                   </Link>
-                </li>
-                <li>
-                  <Link target='about'>About</Link>
-                </li>
-                <li>
-                  <Link target='services'>Service Process</Link>
-                </li>
-                <li>
-                  <Link target='blog'>Criteria</Link>
-                </li>
-                <li>
-                  <Link target='contact'>Contact</Link>
-                </li>
-              </ul>
+              )}
             </div>
           </div>
+
+          {location.pathname == "/upload" ? (
+              <></>
+          ) : (
+              <div className='col-sm-6 col-md-6 col-lg-2 mb-5'>
+                <div className='footer-title'>
+                  <h6>Quick Links</h6>
+                </div>
+                <div className='footer-content'>
+                  <ul className='list-group quick-links'>
+                    <li>
+                      <Link target='home' offset={-120}>
+                        Home
+                      </Link>
+                    </li>
+                    <li>
+                      <Link target='about'>About</Link>
+                    </li>
+                    <li>
+                      <Link target='services'>Service Process</Link>
+                    </li>
+                    <li>
+                      <Link target='blog'>Criteria</Link>
+                    </li>
+                    <li>
+                      <Link target='contact'>Contact</Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+          )}
           <div className='col-sm-6 col-md-6 col-lg-3 mb-5'>
             <div className='footer-title'>
               <h6>Latest News</h6>
