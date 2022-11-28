@@ -3,13 +3,16 @@ import React, { useEffect, useState } from 'react';
 import bgImage from "../../assets/img/swuImage.png";
 import Section from '../../HOC/Section';
 import downloadIcon from "../../assets/icon/download.png";
+import {useRecoilState} from "recoil";
+import {resultVideoAtom} from "../../recoil/uploadResult";
 
 const Upload = () => {
-    const [loading, setloading] = useState(true);
+    const [loading, setLoading] = useState(true);
+    const [resultVideoState, setResultVideoState] = useRecoilState(resultVideoAtom)
 
     useEffect(()=>{
         setTimeout(function() {
-           setloading(false) ;
+           setLoading(false) ;
         }, 3000);
     }, [])
 

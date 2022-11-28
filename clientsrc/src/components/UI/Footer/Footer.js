@@ -3,7 +3,7 @@ import React from 'react';
 import Link from '../Link/Link';
 import {useLocation} from "react-router-dom";
 
-const footer = () => {
+const Footer = () => {
   const location = useLocation();
   return (
     <footer className='' style={{marginTop:"4rem"}}>
@@ -114,4 +114,4 @@ const footer = () => {
   );
 };
 
-export default footer;
+export default Footer;
