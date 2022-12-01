@@ -119,3 +119,9 @@ dist
 
 #보안관련해서..
 package-lock.json
+
+/pythonDir/env_list.py
+*.DS_Store
+flatbuffers>=2.0, but you have flatbuffers 1.12 which is incompatible.
+tensorflow-macos 2.10.0 requires numpy>=1.20, but you have numpy 1.19.5 which is incompatible.
+tensorflow-macos 2.10.0 requires tensorflow-estimator<2.11,>=2.10.0, but you have tensorflow-estimator 2.5.0 which is incompatible.
