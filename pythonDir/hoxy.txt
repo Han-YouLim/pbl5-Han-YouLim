@@ -1,0 +1,34 @@
+example
+
+please wait! 
+
+
+Make copy of video ! 
+
+MoviePy - Writing audio in /var/www/html/webpage/outputData/copy.wav
+MoviePy - Done.
+
+Chage mp4 to wav ! 
+
+for문 : [0] 2.38 : 5.94
+for문 : [0] 9.58 : 11.14
+for문 : [1] 14.53 : 17.34
+quiet : 14.53:17.34
+for문 : [0] 21.03 : 24.99
+for문 : [0] 28.78 : 30.24
+for문 : [1] 34.03 : 35.89
+quiet : 34.03:35.89
+for문 : [0] 39.23 : 41.04
+for문 : [0] 44.28 : 46.24
+Moviepy - Building video /var/www/html/webpage/outputData/result_example.mp4.
+MoviePy - Writing audio in result_exampleTEMP_MPY_wvf_snd.mp3
+MoviePy - Done.
+Moviepy - Writing video /var/www/html/webpage/outputData/result_example.mp4
+
+Moviepy - Done !
+Moviepy - video ready /var/www/html/webpage/outputData/result_example.mp4
+
+Now you can check!!! 
+
+Done !!! 
+
