@@ -69,15 +69,12 @@ def main():
     audioclip = videoclip.audio
     audioclip.write_audiofile(data_output+"copy.wav") # 음성 wav 추출하기
     print('\nChage mp4 to wav ! \n')
-    y =  [0,1,0,0,0,1,0,0,1,0]
-    #      0 1 2 3 4 5 6 7 8 9
-    # 0 3~4 6~7
 
-    # 0    1    2  3
-    # a   1.0  3.0 아메리카노
     make_quiet_wav(data_output+"copy.wav", result, start, end, data_output+"result_{}.wav".format(targetname))
-    videoclip = videoclip.set_audio(AudioFileClip(data_output+"result_{}.wav".format(targetname)))
-    videoclip.write_videofile(data_output+"result_{}.mp4".format(targetname))
+    newaudioclip = AudioFileClip(data_output+"result_{}.wav".format(targetname))
+    newvideoclip = videoclip.set_audio(newaudioclip)
+
+    newvideoclip.write_videofile(data_output+"result_{}.mp4".format(targetname))
 
     print('\nNow you can check!!! ')
 

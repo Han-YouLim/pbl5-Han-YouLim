@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="80a61c1c-9502-48cb-9f5a-f40551bb0656" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../inputData/sfx_mute.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pythonDir/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pythonDir/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pythonDir/.idea/pythonDir.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../pythonDir/.idea/pythonDir.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pythonDir/clovatest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../pythonDir/clovatest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pythonDir/csvData/STTResult.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../pythonDir/csvData/STTResult.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pythonDir/data_in/STT_clean_09.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pythonDir/data_in/STT_input_09.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pythonDir/data_in/clova_test_clean.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pythonDir/data_in/clova_test_input_38.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pythonDir/data_in/real_data_configs_38.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pythonDir/data_in/real_test_input_38.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pythonDir/data_in/real_test_label_38.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pythonDir/data_in/real_train_input_38.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pythonDir/data_in/real_train_label_38.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pythonDir/testVideo.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/../pythonDir/testVideo.mp4" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2IFu36HadON8MVN2OlTYZP86Jpt" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="two.files.diff.last.used.file" value="$USER_HOME$/Downloads/past-deep-learning-based-harmful-language-blocking-system/pythonDir/STTResultPrePro.py" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="80a61c1c-9502-48cb-9f5a-f40551bb0656" name="Changes" comment="" />
+      <created>1669789451613</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1669789451613</updated>
+      <workItem from="1669789452977" duration="15920000" />
+      <workItem from="1669902410651" duration="1250000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
