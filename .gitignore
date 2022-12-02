@@ -129,4 +129,6 @@ package-lock.json
 #비디오
 /inputData/*
 /outputData/*
+*.mp4
+*.wav
 
