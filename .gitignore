@@ -125,6 +125,7 @@ package-lock.json
 /pythonDir/clovatest.json
 /pythonDir/data_in/*
 *.DS_Store
+envList.js
 
 #비디오
 /inputData/*
