@@ -1,24 +1,59 @@
-require("./envList");
 const express = require('express')
 const path = require('path')
-const mysql = require('mysql');
 const app = express()
+const pythonScript =
+    ["./pythonDir/usingClova.py",
+        "./pythonDir/STTResultPrePro.py",
+        "./pythonDir/load_CNN_model.py",
+        "./pythonDir/makeVideo.py"]
+const environmentName = 'mlp';
+// const mysql = require('mysql');
+// const connection = mysql.createConnection({
+//     host: '127.0.0.1', // 여기 수정함
+//     user: 'root',
+//     password: '0000',
+//     database: 'pbl19',
+//     port: '3306',
+// });
+// connection.connect();
+//
+// connection.query('SELECT * from upload_file', (error, rows, fields) => {
+//     if (error) throw error;
+//     console.log('Test SUCCESS>>>>> ', rows);
+// });
+//
+// connection.end();
 
-const connection = mysql.createConnection({
-    host: '127.0.0.1', // 여기 수정함
-    user: 'root',
-    password: '0000',
-    database: 'pbl19',
-    port: '3306',
-});
-connection.connect();
+let runPythonErr = false
 
-connection.query('SELECT * from upload_file', (error, rows, fields) => {
-    if (error) throw error;
-    console.log('Test SUCCESS>>>>> ', rows);
-});
+const runPython = (fileName) =>{
+    if(fileName){
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Run python")
+        const targetVideoFile = '/inputData/'+ fileName
 
-connection.end();
+        //run python file here
+        const command = `conda init && 
+        conda run -n ${environmentName} && 
+        python3 ${pythonScript[0]} ${targetVideoFile} && 
+        python3 ${pythonScript[1]} &&
+        python3 ${pythonScript[2]} &&
+        python3 ${pythonScript[3]} ${targetVideoFile} ${fileName}`
+
+        const pythonProcess = childProcess.spawn(command, { shell: true });
+        pythonProcess.stdout.on('data', function(data) {
+            console.log(data.toString());
+        });
+
+        pythonProcess.stderr.on('data', function(data) {
+            console.log(data.toString());
+            runPythonErr = true
+        });
+
+        return true
+    }
+
+    return false
+}
 
 //file get
 const multer = require('multer');
@@ -46,32 +81,10 @@ app.post("/api/upload", (req, res) => {
         fileName = res.req.file.filename
         return res.json({
             success: true,
-            url: res.req.file.path, //파일을 저장하게되면 uploads폴더 안에 저장되게되는데 그경로를 보내줌
+            url: res.req.file.path, //파일을 저장하게되면 uploads폴더 안에 저장되게되는데 그 경로를 보내줌
             fileName: res.req.file.filename,
         });
     });
-
-    if(fileName){
-        const targetVideoFile = '/inputData/'+ fileName
-        //run python file here
-
-        const command = `conda init && 
-        conda run -n ${environmentName} && 
-        python3 ${pythonScript[0]} ${targetVideoFile} && 
-        python3 ${pythonScript[1]} &&
-        python3 ${pythonScript[2]} &&
-        python3 ${pythonScript[3]} ${targetVideoFile} ${fileName}`
-
-        const pythonProcess = childProcess.spawn(command, { shell: true });
-        pythonProcess.stdout.on('data', function(data) {
-            console.log(data.toString());
-        });
-
-        pythonProcess.stderr.on('data', function(data) {
-            console.log(data.toString());
-        });
-    }
-
 });
 
 // app.use(express.static(path.join(__dirname, 'clientsrc/build')));
