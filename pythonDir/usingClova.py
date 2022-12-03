@@ -2,13 +2,15 @@ import requests
 import json
 import pandas as pd
 import sys
-from env_list import CLOVA_INVOKE_URL, CLOVA_SECRET_KEY
+from env_list import CLOVA_INVOKE_URL, CLOVA_SECRET_KEY, STTResult_IN_PATH
+
 
 class ClovaSpeechClient:
     invoke_url = CLOVA_INVOKE_URL
     secret = CLOVA_SECRET_KEY
 
-    def req_url(self, url, completion, callback=None, userdata=None, forbiddens=None, boostings=None, wordAlignment=True, fullText=True, diarization=None):
+    def req_url(self, url, completion, callback=None, userdata=None, forbiddens=None, boostings=None,
+                wordAlignment=True, fullText=True, diarization=None):
         request_body = {
             'url': url,
             'language': 'ko-KR',
@@ -79,11 +81,12 @@ class ClovaSpeechClient:
         response = requests.post(headers=headers, url=self.invoke_url + '/recognizer/upload', files=files)
         return response
 
+
 def main():
     global targetloc
 
     if len(sys.argv) < 3:
-       targetloc = sys.argv[1]
+        targetloc = sys.argv[1]
 
     res = ClovaSpeechClient().req_upload(file=targetloc, completion='sync')
 
@@ -91,7 +94,7 @@ def main():
         f.write(res.text)
 
     with open("clovatest.json", "r", encoding="utf8") as f:
-        contents = f.read() # string
+        contents = f.read()  # string
 
     json_d = json.loads(res.text)
     sentence = []
@@ -103,12 +106,12 @@ def main():
         start.append(json_d["segments"][i]['start'])
         end.append(json_d["segments"][i]['end'])
 
-    df = pd.DataFrame({'sentence':sentence,
-                 'start' : start,
-                 'end' : end})
+    df = pd.DataFrame({'sentence': sentence,
+                       'start': start,
+                       'end': end})
 
-    # df.to_csv('./csvData/STTResult_'+ targetname+'.csv', ',' ,index=False)
-    df.to_csv('./csvData/STTResult.csv', ',' ,index=False)
+    df.to_csv(STTResult_IN_PATH+'STTResult.csv', ',', index=False)
+
 
 if __name__ == '__main__':
     main()

@@ -7,7 +7,7 @@ import pandas as pd
 import os
 import json
 import time
-from env_list import STTResult_IN_PATH, DATA_IN_RELATIVE_PATH, DATA_OUT_RELATIVE_PATH
+from env_list import STTResult_IN_PATH, DATA_IN_ABSOLUTE_PATH, DATA_OUT_ABSOLUTE_PATH
 
 # 모델 선언 및 컴파일 
 class CNNClassifier(tf.keras.Model):
@@ -47,10 +47,10 @@ SAVE_FILE_NM = './weights.h5'
 
 time.sleep(3)
 
-train_input = np.load(open(DATA_IN_RELATIVE_PATH+ INPUT_TRAIN_DATA, 'rb'))
+train_input = np.load(open(DATA_IN_ABSOLUTE_PATH+ INPUT_TRAIN_DATA, 'rb'))
 train_input = pad_sequences(train_input, maxlen=train_input.shape[1])
-train_label = np.load(open(DATA_IN_RELATIVE_PATH + LABEL_TRAIN_DATA, 'rb'),allow_pickle = True)
-prepro_configs = json.load(open(DATA_IN_RELATIVE_PATH + DATA_CONFIGS, 'rt', encoding='UTF8'))
+train_label = np.load(open(DATA_IN_ABSOLUTE_PATH + LABEL_TRAIN_DATA, 'rb'),allow_pickle = True)
+prepro_configs = json.load(open(DATA_IN_ABSOLUTE_PATH + DATA_CONFIGS, 'rt', encoding='UTF8'))
 
 # 모델 하이퍼파라미터 정의 
 model_name = 'cnn_classifier_kr'
@@ -72,7 +72,7 @@ model.compile(optimizer=tf.keras.optimizers.Adam(),loss=tf.keras.losses.BinaryCr
 
 # overfitting을 막기 위한 ealrystop 추가
 earlystop_callback = EarlyStopping(monitor='val_accuracy', min_delta=0.0001,patience=2)
-checkpoint_path = DATA_OUT_RELATIVE_PATH + model_name + '/weights.h5'
+checkpoint_path = DATA_OUT_ABSOLUTE_PATH + model_name + '/weights.h5'
 checkpoint_dir = os.path.dirname(checkpoint_path)
 
 if os.path.exists(checkpoint_dir):
@@ -92,14 +92,14 @@ history = model.fit(train_input, train_label, batch_size=BATCH_SIZE, epochs=NUM_
 INPUT_TEST_DATA = 'real_test_input_38.npy'
 LABEL_TEST_DATA = 'real_test_label_38.npy'
 
-test_input = np.load(open(DATA_IN_RELATIVE_PATH + INPUT_TEST_DATA, 'rb'))
+test_input = np.load(open(DATA_IN_ABSOLUTE_PATH + INPUT_TEST_DATA, 'rb'))
 test_input = pad_sequences(test_input, maxlen=test_input.shape[1])
-test_label_data = np.load(open(DATA_IN_RELATIVE_PATH + LABEL_TEST_DATA, 'rb'))
+test_label_data = np.load(open(DATA_IN_ABSOLUTE_PATH + LABEL_TEST_DATA, 'rb'))
 
 model.load_weights(SAVE_FILE_NM)
 
 INPUT2_TEST_DATA = 'STT_input_09.npy'
-test_input2 = np.load(open(DATA_IN_RELATIVE_PATH + INPUT2_TEST_DATA, 'rb'))
+test_input2 = np.load(open(DATA_IN_ABSOLUTE_PATH + INPUT2_TEST_DATA, 'rb'))
 test_input2 = pad_sequences(test_input2, maxlen=test_input.shape[1])
 
 results = model.predict(test_input2)

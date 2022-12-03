@@ -1,3 +1,4 @@
+import {pythonScript, environmentName} from "./envList";
 const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
@@ -23,8 +24,7 @@ connection.end();
 
 //file get
 const multer = require('multer');
-const PythonShell = require("python-shell");
-const {stringify} = require("nodemon/lib/utils");
+const childProcess = require('child_process');
 //in front user send their video to "/api/upload"
 //in back computer send processed video to "/upload"
 app.use("/", express.static('./inputData'))
@@ -56,76 +56,24 @@ app.post("/api/upload", (req, res) => {
     if(fileName){
         const targetVideoFile = '/inputData/'+ fileName
         //run python file here
-        let PythonShell = require('python-shell');
         let cozyErrorList = []
-        let options1 = {
-            mode: 'text',
-            pythonPath: '/Users/han-yulim/opt/anaconda3/bin/python',
-            pythonOptions: ['-u'],
-            scriptPath: '',
-            args: [targetVideoFile]
-        };
-        let options2 = {
-            mode: 'text',
-            pythonPath: '/Users/han-yulim/opt/anaconda3/bin/',
-            pythonOptions: ['-u'],
-            scriptPath: '',
-            args: []
-        };
 
-        //클로바 가동 python file 실행
-        PythonShell.PythonShell.run('./pythonDir/'+"usingClova.py", options1, function (err, results) {
-            if (err){
-                cozyErrorList.push(stringify(err))
-                throw err;
-            }
-            else{
-                console.log("Round1 SUCCESS@@")
-            }
-            console.log('ROUND 1 >>>>>>>>>>>>>>> results: %j',results );
+        const command = `conda init && 
+        conda run -n ${environmentName} && 
+        python3 ${pythonScript[0]} ${targetVideoFile} && 
+        python3 ${pythonScript[1]} &&
+        python3 ${pythonScript[2]} &&
+        python3 ${pythonScript[3]} ${targetVideoFile} ${fileName}`
+
+        const pythonProcess = childProcess.spawn(command, { shell: true });
+        pythonProcess.stdout.on('data', function(data) {
+            console.log(data.toString());
         });
 
-        //stt전처리
-        PythonShell.PythonShell.run('./pythonDir/'+"STTResultPrePro.py", options2, function (err, results) {
-            if (err){
-                cozyErrorList.push(stringify(err))
-                throw err;
-            }
-            else{
-                console.log("Round2 SUCCESS@@")
-            }
-            console.log('ROUND 2 >>>>>>>>>>>>>>> results: %j',results );
+        pythonProcess.stderr.on('data', function(data) {
+            console.log(data.toString());
         });
-
-        //모델가동
-        PythonShell.PythonShell.run('./pythonDir/'+"load_CNN_model.py", options2, function (err, results) {
-            if (err) {
-                cozyErrorList.push(stringify(err))
-                throw err;
-            }
-            else{
-                console.log("Round3 SUCCESS@@")
-            }
-            console.log('ROUND 3 >>>>>>>>>>>>>>> results: %j',results );
-        });
-
-        //비디오 재가공
-        PythonShell.PythonShell.run('./pythonDir/'+"makeVideo.py", options1, function (err, results) {
-            if (err){
-                cozyErrorList.push(stringify(err))
-                throw err;
-            }
-            else{
-                console.log("Round4 SUCCESS@@")
-            }
-            console.log('ROUND 4 >>>>>>>>>>>>>>> results: %j',results );
-        });
-
-        cozyErrorList.map((value, index) => {
-            console.log("error"+ index+ "~~~~~~>"+ value)
-        })
     }
-
 
 });
 
