@@ -121,11 +121,12 @@ dist
 package-lock.json
 
 /pythonDir/env_list.py
-/pythonDir/clova_result.csv
-/pythonDir/clovatest.json
+clova_result.csv
+clovatest.json
 /pythonDir/data_in/*
 *.DS_Store
 envList.js
+
 
 #비디오
 /inputData/*
