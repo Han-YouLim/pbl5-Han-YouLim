@@ -1,9 +1,7 @@
-import {pythonScript, environmentName} from "./envList";
+require("./envList");
 const express = require('express')
 const path = require('path')
-const bodyParser = require('body-parser')
 const mysql = require('mysql');
-const fs = require('fs')
 const app = express()
 
 const connection = mysql.createConnection({
@@ -56,7 +54,6 @@ app.post("/api/upload", (req, res) => {
     if(fileName){
         const targetVideoFile = '/inputData/'+ fileName
         //run python file here
-        let cozyErrorList = []
 
         const command = `conda init && 
         conda run -n ${environmentName} && 
