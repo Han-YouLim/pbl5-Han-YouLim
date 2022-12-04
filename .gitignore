@@ -124,6 +124,7 @@ package-lock.json
 /pythonDir/clova_result.csv
 /pythonDir/clovatest.json
 /pythonDir/data_in/*
+/pythonDir/csvData/*
 *.DS_Store
 clova_result.csv
 clovatest.json
