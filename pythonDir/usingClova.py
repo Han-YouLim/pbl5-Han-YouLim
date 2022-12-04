@@ -2,7 +2,7 @@ import requests
 import json
 import pandas as pd
 import sys
-from env_list import CLOVA_INVOKE_URL, CLOVA_SECRET_KEY, STTResult_IN_PATH
+from env_list import CLOVA_INVOKE_URL, CLOVA_SECRET_KEY, STTResult_IN_PATH, DATA_IN_PATH
 
 
 class ClovaSpeechClient:

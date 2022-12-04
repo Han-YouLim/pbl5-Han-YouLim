@@ -1,11 +1,13 @@
 const express = require('express')
 const path = require('path')
 const app = express()
+const bodyParser = require('body-parser')
+const childProcess = require("child_process");
 const pythonScript =
-    ["./pythonDir/usingClova.py",
-        "./pythonDir/STTResultPrePro.py",
-        "./pythonDir/load_CNN_model.py",
-        "./pythonDir/makeVideo.py"]
+    ["~/Desktop/pbl5//pythonDir/usingClova.py",
+        "~/Desktop/pbl5/pythonDir/STTResultPrePro.py",
+        "~/Desktop/pbl5/pythonDir/load_CNN_model.py",
+        "~/Desktop/pbl5/pythonDir/makeVideo.py"]
 const environmentName = 'mlp';
 // const mysql = require('mysql');
 // const connection = mysql.createConnection({
@@ -24,40 +26,37 @@ const environmentName = 'mlp';
 //
 // connection.end();
 
-let runPythonErr = false
-
-const runPython = (fileName) =>{
+function runPython(fileName){
     if(fileName){
         console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Run python")
-        const targetVideoFile = '/inputData/'+ fileName
+        const targetVideoFile = '~/Desktop/pbl5/inputData/'+ fileName
 
         //run python file here
-        const command = `conda init && 
-        conda run -n ${environmentName} && 
-        python3 ${pythonScript[0]} ${targetVideoFile} && 
-        python3 ${pythonScript[1]} &&
-        python3 ${pythonScript[2]} &&
-        python3 ${pythonScript[3]} ${targetVideoFile} ${fileName}`
+        const command = `cd ~ && 
+            source ~/opt/anaconda3/etc/profile.d/conda.sh && 
+            conda activate ${environmentName} &&
+            python3 ${pythonScript[0]} ${targetVideoFile} && 
+            python3 ${pythonScript[1]} &&
+            python3 ${pythonScript[2]} &&
+            python3 ${pythonScript[3]} ${targetVideoFile} ${fileName}`
 
-        const pythonProcess = childProcess.spawn(command, { shell: true });
-        pythonProcess.stdout.on('data', function(data) {
-            console.log(data.toString());
-        });
+        return new Promise((resolve, reject)  => {
+            const pythonProcess = childProcess.spawn(command, { shell: true });
+            pythonProcess.stdout.on('data', function(data) {
+                console.log(data.toString());
+            });
 
-        pythonProcess.stderr.on('data', function(data) {
-            console.log(data.toString());
-            runPythonErr = true
-        });
+            pythonProcess.stderr.on('data', function(data) {
+                console.log(data.toString());
+            });
 
-        return true
+            resolve()
+        })
     }
-
-    return false
 }
 
 //file get
 const multer = require('multer');
-const childProcess = require('child_process');
 //in front user send their video to "/api/upload"
 //in back computer send processed video to "/upload"
 app.use("/", express.static('./inputData'))
@@ -70,9 +69,9 @@ let storage = multer.diskStorage({
         //파일이름을 현재시간_파일이름.mp4로 저장하겠다는의미(중복방지)
     },
 });
-const upload = multer({ storage: storage }).single("file"); //파일하나만업로드하겠다는의미
+const upload = multer({ storage: storage }).single("file");
+let fileName
 app.post("/api/upload", (req, res) => {
-    let fileName
     //비디오를 서버에 저장한다.
     upload(req, res, (err) => {
         if (err) {
@@ -81,13 +80,20 @@ app.post("/api/upload", (req, res) => {
         fileName = res.req.file.filename
         return res.json({
             success: true,
-            url: res.req.file.path, //파일을 저장하게되면 uploads폴더 안에 저장되게되는데 그 경로를 보내줌
-            fileName: res.req.file.filename,
+            url: res.req.file.path, //파일을 저장하게되면 uploads 폴더 안에 저장되게되는데 그 경로를 보내줌
+            fileName: fileName,
         });
     });
 });
 
-// app.use(express.static(path.join(__dirname, 'clientsrc/build')));
+app.get('/api/result', async function (req, res) {
+    await runPython(fileName)
+
+    res.send({
+        "result": true
+    })
+})
+
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'clientsrc/build/index.html'));

@@ -5,18 +5,32 @@ import Section from '../../HOC/Section';
 import downloadIcon from "../../assets/icon/download.png";
 import {useRecoilState} from "recoil";
 import {resultVideoAtom} from "../../recoil/uploadResult";
+import axios from "axios";
 
 const Upload = () => {
     const [loading, setLoading] = useState(true);
-    const [resultVideoState, setResultVideoState] = useRecoilState(resultVideoAtom)
+    const [result, setResult] = useState(false)
+    // const [resultVideoState, setResultVideoState] = useRecoilState(resultVideoAtom)
 
-    useEffect(()=>{
-        setTimeout(function() {
-           setLoading(false) ;
-        }, 3000);
+    useEffect( () => {
+        async function getResult() {
+            try {
+                axios.get('http://localhost:8080/api/result').then((res) => {
+                    console.log(res)
+                    setLoading(false)
+                    if (res.data.result) {
+                        setResult(true)
+                    }
+                })
+            }catch (e) {
+                console.log(e)
+            }
+        }
+
+        getResult()
     }, [])
 
-    return(
+    return (
         <Fragment>
             <main>
                 <Section id='upload'>
@@ -39,24 +53,40 @@ const Upload = () => {
                             </h3>
                         </div>
                         {
-                            loading? (
-                                    <div className="skeleton">
-                                        <div className="skeleton-thumbnail"></div>
-                                        <div className="skeleton-text"></div>
-                                    </div>
-                            ):(
-                                <div className='section-content'>
-                                    <div className='col'>
-                                        <div className='col-md-12 col-lg-6 mb-3'>
-                                            <button className='downloadIcon'>
-                                                <img src={downloadIcon} alt='download' />
-                                            </button>
-                                        </div>
-                                        <div style={{marginLeft: "420px"}}>
-                                            <h4 style={{color: "#6f6f6f"}}>Click this Button and download your video</h4>
-                                        </div>
-                                    </div>
+                            loading ? (
+                                <div className="skeleton">
+                                    <div className="skeleton-thumbnail"></div>
+                                    <div className="skeleton-text"></div>
                                 </div>
+                            ) : (
+                                result ? (
+                                    <div className='section-content'>
+                                        <div className='col'>
+                                            <div className='col-md-12 col-lg-6 mb-3'>
+                                                <button className='downloadIcon'>
+                                                    <img src={downloadIcon} alt='download'/>
+                                                </button>
+                                            </div>
+                                            <div style={{marginLeft: "420px"}}>
+                                                <h4 style={{color: "#6f6f6f"}}>Click this Button and download your
+                                                    video</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ):(
+                                    <div className='section-content'>
+                                        <div className='col'>
+                                            <div className='col-md-12 col-lg-6 mb-3'>
+                                                <button className='downloadIcon'>
+                                                    <img src={downloadIcon} alt='download'/>
+                                                </button>
+                                            </div>
+                                            <div style={{marginLeft: "420px"}}>
+                                                <h4 style={{color: "#6f6f6f"}}> Fail to process your video. Sorry...</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
                             )
                         }
                     </div>
