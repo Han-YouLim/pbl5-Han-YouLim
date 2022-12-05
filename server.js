@@ -20,7 +20,6 @@ function randomNumber(){
 
 function runPython(fileName, res){
     if(fileName){
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Run python")
         const targetVideoFile = targetVideoDir + fileName
         let result
 
@@ -37,7 +36,6 @@ function runPython(fileName, res){
             const pythonProcess = childProcess.spawnSync(command, { shell: true });
             console.log("1, ", pythonProcess.output.toString())
             console.log("2, ",pythonProcess.stdout.toString())
-            console.log("3, ",pythonProcess.stderr.toString())
 
             result = true
 
