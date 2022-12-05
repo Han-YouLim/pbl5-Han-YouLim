@@ -12,25 +12,23 @@ const Upload = () => {
     const [result, setResult] = useState(false) //run python 결과
     // const [resultVideoState, setResultVideoState] = useRecoilState(resultVideoAtom)
 
-    useEffect( () => {
-        async function getResult() {
-            try {
-                axios.get('http://localhost:8080/api/result').then((res) => {
-                    console.log(res)
-                    setLoading(false)
-                    if (res.data.result) {
-                        setResult(true)
-                        console.log(res.data.filename)
-                    }
-                })
-            }catch (e) {
-                console.log(e)
-            }
+    async function getResult() {
+        try {
+            axios.get('http://localhost:8080/api/result').then((res) => {
+                console.log(res)
+                setLoading(false)
+                if (res.data.result) {
+                    setResult(true)
+                    console.log(res.data.filename)
+                }
+            })
+        }catch (e) {
+            console.log(e)
         }
+    }
 
-        getResult().then((res) => {
-            console.log(res)
-        })
+    useEffect( () => {
+        getResult()
     }, [])
 
     return (
