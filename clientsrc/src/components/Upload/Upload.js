@@ -9,7 +9,7 @@ import axios from "axios";
 
 const Upload = () => {
     const [loading, setLoading] = useState(true);
-    const [result, setResult] = useState(false)
+    const [result, setResult] = useState(false) //run python 결과
     // const [resultVideoState, setResultVideoState] = useRecoilState(resultVideoAtom)
 
     useEffect( () => {
@@ -20,6 +20,7 @@ const Upload = () => {
                     setLoading(false)
                     if (res.data.result) {
                         setResult(true)
+                        console.log(res.data.filename)
                     }
                 })
             }catch (e) {
@@ -27,7 +28,9 @@ const Upload = () => {
             }
         }
 
-        getResult()
+        getResult().then((res) => {
+            console.log(res)
+        })
     }, [])
 
     return (

@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const app = express()
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const childProcess = require("child_process");
 const pythonScript =
     ["~/Desktop/pbl5//pythonDir/usingClova.py",
@@ -25,11 +26,20 @@ const environmentName = 'mlp';
 // });
 //
 // connection.end();
+app.use(cors())
 
-function runPython(fileName){
+function randomNumber(){
+    let str = ''
+    for (let i = 0; i < 6; i++) {
+        str += Math.floor(Math.random() * 10)
+    }
+    return parseInt(str)
+}
+function runPython(fileName, res){
     if(fileName){
         console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Run python")
         const targetVideoFile = '~/Desktop/pbl5/inputData/'+ fileName
+        let result
 
         //run python file here
         const command = `cd ~ && 
@@ -40,18 +50,21 @@ function runPython(fileName){
             python3 ${pythonScript[2]} &&
             python3 ${pythonScript[3]} ${targetVideoFile} ${fileName}`
 
-        return new Promise((resolve, reject)  => {
-            const pythonProcess = childProcess.spawn(command, { shell: true });
-            pythonProcess.stdout.on('data', function(data) {
-                console.log(data.toString());
-            });
+        try{
+            const pythonProcess = childProcess.spawnSync(command, { shell: true });
+            console.log("1, ", pythonProcess.output.toString())
+            console.log("2, ",pythonProcess.stdout.toString())
+            console.log("3, ",pythonProcess.stderr.toString())
 
-            pythonProcess.stderr.on('data', function(data) {
-                console.log(data.toString());
-            });
+            result = true
 
-            resolve()
-        })
+            res.send({
+                "result": result,
+                "filename": "result_"+fileName
+            })
+        }catch(error){
+            console.log('Error', error);
+        }
     }
 }
 
@@ -65,8 +78,7 @@ let storage = multer.diskStorage({
         cb(null, "inputData/"); //uploads라는 폴더에 file을 저장
     },
     filename: (req, file, cb) => {
-        cb(null, `${Date.now()}_${file.originalname}`);
-        //파일이름을 현재시간_파일이름.mp4로 저장하겠다는의미(중복방지)
+        cb(null, `${randomNumber()}_${file.originalname}`);
     },
 });
 const upload = multer({ storage: storage }).single("file");
@@ -86,14 +98,9 @@ app.post("/api/upload", (req, res) => {
     });
 });
 
-app.get('/api/result', async function (req, res) {
-    await runPython(fileName)
-
-    res.send({
-        "result": true
-    })
+app.get('/api/result', cors(), function (req, res) {
+    runPython(fileName, res)
 })
-
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'clientsrc/build/index.html'));
