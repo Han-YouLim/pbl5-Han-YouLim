@@ -119,7 +119,7 @@ dist
 
 #보안관련해서..
 package-lock.json
-
+/clientsrc/src/env.js
 /pythonDir/env_list.py
 /pythonDir/clova_result.csv
 /pythonDir/clovatest.json
