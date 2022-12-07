@@ -39,6 +39,9 @@ npm install
 npm run dev
 ```
 
+## Flow Chart
+<img width="1024" alt="pbl5 Han-YouLim flow chart" src="https://user-images.githubusercontent.com/68285994/206187157-71d4524a-e109-4c81-ac32-e2e288cf385d.png">
+
 ## Authors
 
 - 한유림(hanyoulim12@gmail.com)
