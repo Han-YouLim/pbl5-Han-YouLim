@@ -5,9 +5,13 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const childProcess = require("child_process");
 const env = require('./env')
+const fs = require("fs")
 const environmentName = env.environmentName
 const pythonScriptArr = env.pythonScript
 const targetVideoDir = env.targetVideoDir
+const outputVideoDir = env.outPutVideoDir
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
 app.use(cors())
 
 function randomNumber(){
@@ -49,7 +53,7 @@ function runPython(fileName, res){
     }
 }
 
-//file get
+//file upload
 const multer = require('multer');
 app.use("/", express.static('./inputData'))
 let storage = multer.diskStorage({
@@ -80,6 +84,21 @@ app.post("/api/upload", (req, res) => {
 app.get('/api/result', cors(), function (req, res) {
     runPython(fileName, res)
 })
+
+//serve video
+app.get('/api/video/:fn', function(req, res, next) {
+    const path = `${outputVideoDir}${req.params.fn}`
+
+    const stat = fs.statSync(path)
+    const fileSize = stat.size
+    const head = {
+        'Content-Length': fileSize,
+        'Content-Type': 'video/mp4',
+    }
+    res.writeHead(200, head)
+    fs.createReadStream(path).pipe(res)
+
+});
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'clientsrc/build/index.html'));

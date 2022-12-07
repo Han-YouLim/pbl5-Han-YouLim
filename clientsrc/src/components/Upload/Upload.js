@@ -3,23 +3,30 @@ import React, { useEffect, useState } from 'react';
 import bgImage from "../../assets/img/swuImage.png";
 import Section from '../../HOC/Section';
 import downloadIcon from "../../assets/icon/download.png";
-import {useRecoilState} from "recoil";
-import {resultVideoAtom} from "../../recoil/uploadResult";
 import axios from "axios";
+import {useCookies} from "react-cookie";
+import {encrypt, decrypt} from "../../util/encryption";
+import {GETRESULTAPIURL, GETVIDEOAPIURL} from "../../env";
 
 const Upload = () => {
     const [loading, setLoading] = useState(true);
     const [result, setResult] = useState(false) //run python 결과
-    // const [resultVideoState, setResultVideoState] = useRecoilState(resultVideoAtom)
+    const [cookies, setCookie, removeCookie] = useCookies()
+    useEffect( () => {
+        getResult()
+    }, [])
 
     async function getResult() {
         try {
-            axios.get('http://localhost:8080/api/result').then((res) => {
+            axios.get(GETRESULTAPIURL).then((res) => {
                 console.log(res)
                 setLoading(false)
                 if (res.data.result) {
                     setResult(true)
                     console.log(res.data.filename)
+                    const value = encrypt(res.data.filename)
+                    setCookie("video-name", value)
+
                 }
             })
         }catch (e) {
@@ -27,12 +34,27 @@ const Upload = () => {
         }
     }
 
-    useEffect( () => {
-        getResult()
-    }, [])
+    function onClickDownload(){
+        const value = cookies["video-name"]
+
+        axios.get(GETVIDEOAPIURL+decrypt(value), {responseType: "blob"})
+            .then((res)=>{
+                const file = new File([res.data], decrypt(value))
+                const fileObjectUrl = window.URL.createObjectURL(file)
+                const link = document.createElement("a")
+                link.href = fileObjectUrl
+                link.style.display = "none"
+                link.download = decrypt(value)
+
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                window.URL.revokeObjectURL(fileObjectUrl);
+        })
+    }
 
     return (
-        <Fragment>
+       <Fragment>
             <main>
                 <Section id='upload'>
                     <div>
@@ -64,7 +86,7 @@ const Upload = () => {
                                     <div className='section-content'>
                                         <div className='col'>
                                             <div className='col-md-12 col-lg-6 mb-3'>
-                                                <button className='downloadIcon'>
+                                                <button className='downloadIcon' onClick={onClickDownload}>
                                                     <img src={downloadIcon} alt='download'/>
                                                 </button>
                                             </div>
