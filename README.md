@@ -6,7 +6,7 @@
 
 - 기존의 PHP 서버를 React와 nodejs로 전환하였습니다.
 - 웹페이지의 디자인을 변경하였습니다.
-- 비디오 생성 기능에 대한 오류를 새로 해결하였습니다. (in pythonDir)
+- 비디오 재가공 과정 중, 음성(.wav)와 비디오(.mp4) 합성 오류를 해결하였습니다. (in pythonDir)
 
 ## Getting Started
 
