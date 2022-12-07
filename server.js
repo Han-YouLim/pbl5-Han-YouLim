@@ -37,7 +37,7 @@ function runPython(fileName, res){
             python3 ${pythonScriptArr[3]} ${targetVideoFile} ${fileName}`
 
         try{
-            const pythonProcess = childProcess.spawnSync(command, { shell: true });
+            const pythonProcess = childProcess.spawnSync(command, { shell: true })
             console.log("1, ", pythonProcess.output.toString())
             console.log("2, ",pythonProcess.stdout.toString())
 
@@ -48,38 +48,39 @@ function runPython(fileName, res){
                 "filename": "result_"+fileName
             })
         }catch(error){
-            console.log('Error', error);
+            console.log('Error', error)
         }
     }
 }
 
 //file upload
-const multer = require('multer');
+const multer = require('multer')
 app.use("/", express.static('./inputData'))
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "inputData/"); //uploads라는 폴더에 file을 저장
+        cb(null, "inputData/")
     },
     filename: (req, file, cb) => {
-        cb(null, `${randomNumber()}_${file.originalname}`);
+        cb(null, `${randomNumber()}_${file.originalname}`)
     },
 });
-const upload = multer({ storage: storage }).single("file");
+const upload = multer({ storage: storage }).single("file")
 let fileName
+
+//save video on server
 app.post("/api/upload", (req, res) => {
-    //비디오를 서버에 저장한다.
     upload(req, res, (err) => {
         if (err) {
-            return res.json({ success: false, err });
+            return res.json({ success: false, err })
         }
         fileName = res.req.file.filename
         return res.json({
             success: true,
-            url: res.req.file.path, //파일을 저장하게되면 uploads 폴더 안에 저장되게되는데 그 경로를 보내줌
+            url: res.req.file.path,
             fileName: fileName,
-        });
-    });
-});
+        })
+    })
+})
 
 app.get('/api/result', cors(), function (req, res) {
     runPython(fileName, res)

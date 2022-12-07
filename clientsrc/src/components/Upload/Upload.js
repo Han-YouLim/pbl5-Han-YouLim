@@ -26,7 +26,6 @@ const Upload = () => {
                     console.log(res.data.filename)
                     const value = encrypt(res.data.filename)
                     setCookie("video-name", value)
-
                 }
             })
         }catch (e) {
@@ -35,17 +34,14 @@ const Upload = () => {
     }
 
     function onClickDownload(){
-        const value = cookies["video-name"]
-
-        axios.get(GETVIDEOAPIURL+decrypt(value), {responseType: "blob"})
-            .then((res)=>{
-                const file = new File([res.data], decrypt(value))
+        axios.get(GETVIDEOAPIURL+decrypt(cookies["video-name"]),
+            {responseType: "blob"}).then((res)=>{
+                const file = new File([res.data], decrypt(cookies["video-name"]))
                 const fileObjectUrl = window.URL.createObjectURL(file)
                 const link = document.createElement("a")
                 link.href = fileObjectUrl
                 link.style.display = "none"
-                link.download = decrypt(value)
-
+                link.download = decrypt(cookies["video-name"])
                 document.body.appendChild(link);
                 link.click();
                 link.remove();
