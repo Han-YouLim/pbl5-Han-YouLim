@@ -21,9 +21,7 @@ const Nav = () => {
       setNavClass(navClass);
     });
   }, []);
-  useEffect(()=>{
-    console.log(location)
-  }, [location])
+
   return (
     <nav className={`navbar navbar-expand-md bg-light ${navClass}`}>
       <div className='container' >

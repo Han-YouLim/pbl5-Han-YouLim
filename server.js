@@ -6,6 +6,7 @@ const cors = require('cors')
 const childProcess = require("child_process");
 const env = require('./env')
 const fs = require("fs")
+const multer = require('multer')
 const environmentName = env.environmentName
 const pythonScriptArr = env.pythonScript
 const targetVideoDir = env.targetVideoDir
@@ -54,7 +55,6 @@ function runPython(fileName, res){
 }
 
 //file upload
-const multer = require('multer')
 app.use("/", express.static('./inputData'))
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -75,9 +75,7 @@ app.post("/api/upload", (req, res) => {
         }
         fileName = res.req.file.filename
         return res.json({
-            success: true,
-            url: res.req.file.path,
-            fileName: fileName,
+            success: true
         })
     })
 })

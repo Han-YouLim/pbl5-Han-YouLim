@@ -19,11 +19,9 @@ const Upload = () => {
     async function getResult() {
         try {
             axios.get(GETRESULTAPIURL).then((res) => {
-                console.log(res)
                 setLoading(false)
                 if (res.data.result) {
                     setResult(true)
-                    console.log(res.data.filename)
                     const value = encrypt(res.data.filename)
                     setCookie("video-name", value)
                 }
